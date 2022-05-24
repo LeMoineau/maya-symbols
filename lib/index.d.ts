@@ -1,0 +1,14 @@
+import { Symbol as s } from "./components/symbol";
+import { SLine as sl } from "./components/s-line";
+import { SChip as sc } from "./components/s-chip";
+import { SFrame as sf } from "./components/s-frame";
+import { Coordonate as c } from "./components/coordonates";
+import { Table } from "./engine/tables";
+export declare const Symbol: typeof s;
+export declare const SLine: typeof sl;
+export declare const SFrame: typeof sf;
+export declare const SChip: typeof sc;
+export declare const Coordonate: typeof c;
+export declare const pastTable: Table;
+export declare const presentTable: Table;
+export declare const table: typeof Table;
