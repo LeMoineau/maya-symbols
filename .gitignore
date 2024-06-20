@@ -82,3 +82,6 @@ typings/
 dist
 **/dist
 **/node_modules
+
+#google credentials
+service-account.json
