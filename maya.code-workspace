@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "maya-symbols-module",
+      "name": "pink-box Module"
+    },
+    {
+      "path": "maya-symbols-service",
+      "name": "maya-symbols Service"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "maya-symbols-module": true,
+      "maya-symbols-service": true,
+      "**/node_modules": true,
+      "**/dist": false,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true
+    },
+    "editor.rulers": [
+      {
+        "column": 80,
+        "color": "#16a085"
+      },
+      {
+        "column": 100,
+        "color": "#c0392b"
+      }
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true
+  }
+}
