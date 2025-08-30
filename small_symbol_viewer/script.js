@@ -1,10 +1,10 @@
 function createStroke(segment) {
   const stroke = document.createElementNS("http://www.w3.org/2000/svg", "line");
   stroke.classList.add("stroke");
-  stroke.setAttribute("x1", segment.points[0].x);
-  stroke.setAttribute("y1", segment.points[0].y);
-  stroke.setAttribute("x2", segment.points[1].x);
-  stroke.setAttribute("y2", segment.points[1].y);
+  stroke.setAttribute("x1", segment.x1);
+  stroke.setAttribute("y1", segment.y1);
+  stroke.setAttribute("x2", segment.x2);
+  stroke.setAttribute("y2", segment.y2);
   return stroke;
 }
 
@@ -12,10 +12,10 @@ function initCanvasViewPort(canvas, segments, props) {
   let maxWidth = 0;
   let maxHeight = 0;
   for (let segment of segments) {
-    for (let point of segment.points) {
-      if (point.x > maxWidth) maxWidth = point.x;
-      if (point.y > maxHeight) maxHeight = point.y;
-    }
+    const currentMaxX = Math.max(segment.x1, segment.x2);
+    const currentMaxY = Math.max(segment.y1, segment.y2);
+    if (currentMaxX > maxWidth) maxWidth = currentMaxX;
+    if (currentMaxY > maxHeight) maxHeight = currentMaxY;
   }
   canvas.setAttribute(
     "viewBox",
