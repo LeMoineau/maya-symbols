@@ -1,6 +1,9 @@
 :root {
   --canvas-width: 200px;
   --canvas-height: 200px;
+
+  --symbol-creator-canvas-width: 500px;
+  --symbol-creator-canvas-height: 500px;
 }
 
 #container {
@@ -17,8 +20,17 @@
   margin: 10px;
 }
 
+.canvas.symbol-creator {
+  width: var(--symbol-creator-canvas-width);
+  height: var(--symbol-creator-canvas-height);
+}
+
 .stroke {
   stroke-width: 0.2px;
   stroke-linecap: round;
   stroke: grey;
+}
+
+.disable-pointers-events {
+  pointer-events: none;
 }
