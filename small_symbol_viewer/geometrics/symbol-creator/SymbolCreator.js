@@ -6,11 +6,11 @@ class SymbolCreator {
     this._cols = cols ?? 5;
     this._rows = rows ?? 5;
     this._snapPoints = [];
-    this._init();
     this._drawing = false;
     this._currentDrawing = undefined;
     this._strokes = [];
     this.options = options;
+    this._init();
   }
 
   _init() {
@@ -74,11 +74,28 @@ class SymbolCreator {
   }
 
   _createPins() {
-    // this._canvas = document.createElementNS(
-    //   "http://www.w3.org/2000/svg",
-    //   "svg"
-    // );
-    // this._canvas.setAttribute("viewBox", `0 0 ${this._rows} ${this._cols}`);
+    const pinsCanvas = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    pinsCanvas.setAttribute("viewBox", `0 0 10 5`);
+    pinsCanvas.classList.add("canvas");
+    pinsCanvas.classList.add("pins-canvas");
+    this._div.appendChild(pinsCanvas);
+    const firstPins = new Form({
+      points: `0.5,0.5 0.5,5 5,5 5,0.5`,
+      afterHtmlCreated: (html) => {
+        html.classList.add("background-rect");
+        pinsCanvas.appendChild(html);
+      },
+      onClick: (ev, form) => {
+        if (form.isFilled()) {
+          form.emptyContent();
+        } else {
+          form.fill("red");
+        }
+      },
+    });
   }
 
   hideSnapPoints() {
