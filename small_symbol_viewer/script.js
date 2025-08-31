@@ -46,15 +46,15 @@ const symbolCreator = new SymbolCreator({
   rows: 5,
   cols: 5,
   options: {
-    dontStopDrawingBetweenStrokes: false,
+    dontStopDrawingBetweenStrokes: true,
   },
 });
 
 const symbolCreator2 = new SymbolCreator({
-  rows: 7,
-  cols: 5,
+  rows: 13,
+  cols: 9,
   containerId: "symbol-creator2",
   options: {
-    dontStopDrawingBetweenStrokes: true,
+    dontStopDrawingBetweenStrokes: false,
   },
 });

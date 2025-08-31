@@ -6,9 +6,10 @@ class SnapPoint {
   constructor({ x, y, size, fill, onClick }) {
     this.x = x;
     this.y = y;
-    this.size = size ?? SNAP_POINT_SIZE;
+    this.size = size ?? 0.1;
     this.fill = fill ?? "red";
     this._initHtml({ onClick });
+    this._activate = false;
   }
 
   _initHtml({ onClick }) {
@@ -33,5 +34,20 @@ class SnapPoint {
 
   show() {
     this.html.setAttribute("fill", "red");
+  }
+
+  /**
+   * change the color of the point for being start/end of
+   * the symbol strokes
+   */
+  activate() {
+    this._activate = true;
+    this._html.setAttribute("fill", "var(--stroke-color)");
+    this.html.classList.add("snappoint-activate");
+  }
+
+  desactivate() {
+    this._activate = false;
+    this._html.setAttribute("fill", this.fill);
   }
 }

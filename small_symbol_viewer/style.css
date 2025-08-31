@@ -1,4 +1,13 @@
 :root {
+  --snap-point-color: "red";
+  --snap-point-size: 0.1;
+
+  --stroke-color: grey;
+  --stroke-width: 0.15px;
+
+  --background-rect-color: black;
+  --background-rect-width: var(--stroke-width);
+
   --canvas-width: 200px;
   --canvas-height: 200px;
 
@@ -26,9 +35,18 @@
 }
 
 .stroke {
-  stroke-width: 0.2px;
+  stroke-width: var(--stroke-width);
   stroke-linecap: round;
-  stroke: grey;
+  stroke: var(--stroke-color);
+}
+
+.background-rect {
+  stroke-width: var(--background-rect-width);
+  stroke-linecap: round;
+  stroke-linejoin: "round";
+  stroke: var(--background-rect-color);
+  fill: transparent;
+  opacity: 0.8;
 }
 
 .disable-pointers-events {

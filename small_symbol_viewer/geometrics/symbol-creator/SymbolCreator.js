@@ -15,6 +15,7 @@ class SymbolCreator {
 
   _init() {
     this._createCanvas();
+    this._createBackgroundRectangle();
     for (let x = 0; x < this._rows; x++) {
       for (let y = 0; y < this._cols; y++) {
         this._createSnapPoint(x + 0.5, y + 0.5);
@@ -28,9 +29,9 @@ class SymbolCreator {
       "http://www.w3.org/2000/svg",
       "svg"
     );
+    this._canvas.setAttribute("viewBox", `0 0 ${this._rows} ${this._cols}`);
     this._canvas.classList.add("canvas");
     this._canvas.classList.add("symbol-creator");
-    this._initCanvasViewport();
     this._canvas.addEventListener("mousemove", (ev) => {
       if (this._drawing) {
         this._updateCurrentDrawingDisplay(ev, this._currentDrawing);
@@ -44,8 +45,16 @@ class SymbolCreator {
     this._div.appendChild(this._canvas);
   }
 
-  _initCanvasViewport() {
-    this._canvas.setAttribute("viewBox", `0 0 ${this._rows} ${this._cols}`);
+  _createBackgroundRectangle() {
+    this._backgroundRect = new Form({
+      points: `0.5,0.5 0.5,${this._cols - 0.5} ${this._rows - 0.5},${
+        this._cols - 0.5
+      } ${this._rows - 0.5},0.5`,
+      afterHtmlCreated: (html) => {
+        html.classList.add("background-rect");
+        this._canvas.appendChild(html);
+      },
+    });
   }
 
   _createSnapPoint(x, y) {
@@ -64,7 +73,13 @@ class SymbolCreator {
     this._snapPoints.push(snapPoint);
   }
 
-  _createPins() {}
+  _createPins() {
+    // this._canvas = document.createElementNS(
+    //   "http://www.w3.org/2000/svg",
+    //   "svg"
+    // );
+    // this._canvas.setAttribute("viewBox", `0 0 ${this._rows} ${this._cols}`);
+  }
 
   hideSnapPoints() {
     for (let pt of this._snapPoints) {
@@ -86,6 +101,7 @@ class SymbolCreator {
       snapPoint.x,
       snapPoint.y
     );
+    snapPoint.activate();
     this._currentDrawing.disablePointersEvents();
     this._canvas.appendChild(this._currentDrawing.html);
     this._canvas.toUpdateSegment = this._currentDrawing;
@@ -125,6 +141,7 @@ class SymbolCreator {
     this._drawing = false;
     this._currentDrawing.updateP2(snapPoint.x, snapPoint.y);
     this._strokes.push(this._currentDrawing);
+    snapPoint.activate();
     this._currentDrawing = undefined;
     if (this.options.dontStopDrawingBetweenStrokes) {
       this._startDraw(snapPoint);
@@ -136,7 +153,42 @@ class SymbolCreator {
    */
   _cancelDraw() {
     this._drawing = false;
+    const startingSnapPoint = this._findSnapPointAt(
+      this._currentDrawing.x1,
+      this._currentDrawing.y1
+    );
+    if (
+      startingSnapPoint !== undefined &&
+      !this._aStrokeIsUsingTheSnapPoint(startingSnapPoint)
+    ) {
+      startingSnapPoint.desactivate();
+    }
     this._currentDrawing.destroy();
     this._currentDrawing = undefined;
+  }
+
+  /**
+   * find a snap point from its coordinates
+   * @param {number} x
+   * @param {number} y
+   * @returns {SnapPoint} the found snap point or undefined
+   */
+  _findSnapPointAt(x, y) {
+    return this._snapPoints.find((p) => p.x === x && p.y === y);
+  }
+
+  /**
+   * check if a stroke of the current symbol is using the targeted snapPoint
+   * @param {SnapPoint} snapPoint
+   * @returns true if the snapPoint is used, else false
+   */
+  _aStrokeIsUsingTheSnapPoint(snapPoint) {
+    return (
+      this._strokes.find(
+        (s) =>
+          (s.x1 === snapPoint.x && s.y1 === snapPoint.y) ||
+          (s.x2 === snapPoint.x && s.y2 === snapPoint.y)
+      ) !== undefined
+    );
   }
 }
