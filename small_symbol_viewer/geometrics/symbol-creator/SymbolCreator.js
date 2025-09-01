@@ -1,6 +1,19 @@
 const SNAP_POINT_SIZE = 0.1;
 
 class SymbolCreator {
+  /**
+   * create a symbol creator
+   *
+   * @param {{
+   * cols: number,
+   * rows: number,
+   * containerId?: string,
+   * options?: {
+   *  dontStopDrawingBetweenStrokes: boolean,
+   *  stopDrawAfterCompletingAForm: boolean
+   * }
+   * }} props
+   */
   constructor({ cols, rows, containerId, options }) {
     this._div = document.getElementById(containerId ?? "symbol-creator");
     this._cols = cols ?? 5;
@@ -98,6 +111,12 @@ class SymbolCreator {
       snapPoint.y
     );
     snapPoint.activate();
+    if (
+      this.options.stopDrawAfterCompletingAForm &&
+      !this._startingFormSnapPoint
+    ) {
+      this._startingFormSnapPoint = snapPoint;
+    }
     this._currentDrawing.disablePointersEvents();
     this._canvas.appendChild(this._currentDrawing.html);
     this._canvas.toUpdateSegment = this._currentDrawing;
@@ -124,12 +143,6 @@ class SymbolCreator {
     );
   }
 
-  _cancelDrawingHandler(ev) {
-    if (ev.button === 1) {
-      ev.currentTarget.cancelDraw();
-    }
-  }
-
   /**
    * Finish a draw and create a new segment
    */
@@ -140,7 +153,15 @@ class SymbolCreator {
     snapPoint.activate();
     this._currentDrawing = undefined;
     if (this.options.dontStopDrawingBetweenStrokes) {
-      this._startDraw(snapPoint);
+      if (
+        this.options.stopDrawAfterCompletingAForm &&
+        this._startingFormSnapPoint &&
+        this._startingFormSnapPoint === snapPoint
+      ) {
+        this._startingFormSnapPoint = undefined;
+      } else {
+        this._startDraw(snapPoint);
+      }
     }
   }
 
@@ -161,6 +182,7 @@ class SymbolCreator {
     }
     this._currentDrawing.destroy();
     this._currentDrawing = undefined;
+    this._startingFormSnapPoint = undefined;
   }
 
   /**

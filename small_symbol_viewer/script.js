@@ -47,6 +47,7 @@ const symbolCreator = new SymbolCreator({
   cols: 5,
   options: {
     dontStopDrawingBetweenStrokes: true,
+    stopDrawAfterCompletingAForm: true,
   },
 });
 
