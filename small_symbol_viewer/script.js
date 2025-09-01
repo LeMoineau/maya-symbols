@@ -52,7 +52,7 @@ const symbolCreator = new SymbolCreator({
 
 const symbolCreator2 = new SymbolCreator({
   rows: 13,
-  cols: 9,
+  cols: 13,
   containerId: "symbol-creator2",
   options: {
     dontStopDrawingBetweenStrokes: false,

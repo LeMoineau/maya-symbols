@@ -74,28 +74,7 @@ class SymbolCreator {
   }
 
   _createPins() {
-    const pinsCanvas = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    pinsCanvas.setAttribute("viewBox", `0 0 10 5`);
-    pinsCanvas.classList.add("canvas");
-    pinsCanvas.classList.add("pins-canvas");
-    this._div.appendChild(pinsCanvas);
-    const firstPins = new Form({
-      points: `0.5,0.5 0.5,5 5,5 5,0.5`,
-      afterHtmlCreated: (html) => {
-        html.classList.add("background-rect");
-        pinsCanvas.appendChild(html);
-      },
-      onClick: (ev, form) => {
-        if (form.isFilled()) {
-          form.emptyContent();
-        } else {
-          form.fill("red");
-        }
-      },
-    });
+    this._pinsManager = new PinsManager({ parentElement: this._div });
   }
 
   hideSnapPoints() {

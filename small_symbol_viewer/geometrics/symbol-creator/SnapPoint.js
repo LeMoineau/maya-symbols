@@ -33,7 +33,15 @@ class SnapPoint {
   }
 
   show() {
-    this.html.setAttribute("fill", "red");
+    if (this.isActivated()) {
+      this.activate();
+    } else {
+      this.html.setAttribute("fill", "red");
+    }
+  }
+
+  isActivated() {
+    return this._activate;
   }
 
   /**

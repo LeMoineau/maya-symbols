@@ -8,6 +8,9 @@
   --background-rect-color: black;
   --background-rect-width: var(--stroke-width);
 
+  --pins-color: var(--background-rect-color);
+  --pins-stroke-width: 0.2;
+
   --canvas-width: 200px;
   --canvas-height: 200px;
 
@@ -26,12 +29,16 @@
   background-color: #ecf0f1;
   width: var(--canvas-width);
   height: var(--canvas-height);
-  margin: 10px;
 }
 
 .canvas.symbol-creator {
   width: var(--symbol-creator-canvas-width);
   height: var(--symbol-creator-canvas-height);
+}
+
+.canvas.pins-canvas {
+  width: var(--symbol-creator-canvas-width);
+  margin-top: -10px;
 }
 
 .stroke {
@@ -47,6 +54,12 @@
   stroke: var(--background-rect-color);
   fill: transparent;
   opacity: 0.8;
+}
+
+.pins-stroke {
+  stroke-width: var(--pins-stroke-width);
+  stroke-linecap: round;
+  stroke: var(--pins-color);
 }
 
 .disable-pointers-events {
