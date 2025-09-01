@@ -31,9 +31,9 @@ class PinsManager {
 
   _createPins() {
     const pinsPts = [
-      `0.5,0.5 -0.5,4.5 3,4.5 3,0.5`,
-      `3.7,0.5 6.3,0.5 6.5,4.5 3.5,4.5`,
-      `7,0.5 7,4.5 10.5,4.5 9.5,0.5`,
+      `0.5,0.5 -0.5,3.5 3,3.5 3,0.5`,
+      `3.7,0.5 6.3,0.5 6.5,3.5 3.5,3.5`,
+      `7,0.5 7,3.5 10.5,3.5 9.5,0.5`,
     ];
     for (let p of pinsPts) {
       this._pins.push(
@@ -47,7 +47,7 @@ class PinsManager {
     }
   }
 
-  get binary() {
+  get pinsNumber() {
     return parseInt(
       this._pins.map((p) => (p.isActivated() ? "1" : "0")).join(""),
       2

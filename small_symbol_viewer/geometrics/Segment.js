@@ -1,9 +1,17 @@
 class Segment {
+  /**
+   * create a new segment
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
+   */
   constructor(x1, y1, x2, y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this._onClick = () => {};
     this._initHtml();
   }
 
@@ -14,10 +22,21 @@ class Segment {
     this._html.setAttribute("y1", this.y1);
     this._html.setAttribute("x2", this.x2);
     this._html.setAttribute("y2", this.y2);
+    this._html.addEventListener("click", (ev) => {
+      this._onClick && this._onClick(ev, this);
+    });
+    this.disablePointerEvents();
   }
 
   get html() {
     return this._html;
+  }
+
+  /**
+   * @param {(ev, segment: Segment) => void} callback
+   */
+  set onClick(callback) {
+    this._onClick = callback;
   }
 
   distance() {
@@ -38,8 +57,12 @@ class Segment {
     this._html.setAttribute("y2", y);
   }
 
-  disablePointersEvents() {
-    this._html.classList.add("disable-pointers-events");
+  disablePointerEvents() {
+    this._html.classList.add("disable-pointer-events");
+  }
+
+  enablePointerEvents() {
+    this._html.classList.remove("disable-pointer-events");
   }
 
   destroy() {

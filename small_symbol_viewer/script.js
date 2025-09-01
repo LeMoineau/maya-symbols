@@ -45,6 +45,7 @@ function show(segments, props) {
 const symbolCreator = new SymbolCreator({
   rows: 5,
   cols: 5,
+  onStrokeClick: (ev, s) => console.log("coucou", ev, s),
   options: {
     dontStopDrawingBetweenStrokes: true,
     stopDrawAfterCompletingAForm: true,
