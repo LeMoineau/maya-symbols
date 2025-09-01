@@ -42,6 +42,15 @@ function show(segments, props) {
   document.getElementById("container").appendChild(canvas);
 }
 
+function newShow(points, options) {
+  const shower = new SymbolShower({
+    points,
+    containerId: "container",
+    options,
+  });
+  console.log(shower);
+}
+
 const symbolCreator = new SymbolCreator({
   rows: 5,
   cols: 5,

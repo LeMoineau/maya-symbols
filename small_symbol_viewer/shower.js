@@ -1,49 +1,8 @@
-show([
-  new Segment(0, 0, 0, 5),
-  new Segment(0, 5, 5, 5),
-  new Segment(5, 5, 5, 0),
-  new Segment(5, 0, 0, 0),
-  new Segment(0, 5, 0, 10),
-  new Segment(0, 10, 5, 10),
-  new Segment(5, 10, 5, 5),
-  new Segment(5, 5, 0, 5),
-]);
-show(
-  [
-    new Segment(0, 0, 0, 5),
-    new Segment(0, 5, 5, 5),
-    new Segment(5, 5, 5, 0),
-    new Segment(5, 0, 0, 0),
-  ],
-  { width: 5, height: 10 }
-);
-show([
-  new Segment(0, 5, 0, 10),
-  new Segment(5, 5, 0, 5),
-  new Segment(0, 10, 5, 10),
-  new Segment(5, 10, 5, 5),
-]);
-
-show([
-  new Segment(0, 0, 0, 2),
-  new Segment(6, 2, 0, 2),
-  new Segment(6, 2, 6, 0),
-  new Segment(0, 0, 6, 0),
-  new Segment(0, 4, 0, 6),
-  new Segment(6, 6, 0, 6),
-  new Segment(6, 6, 6, 4),
-  new Segment(0, 4, 6, 4),
-]);
-
-show(
-  [
-    new Segment(0, 0, 0, 2),
-    new Segment(6, 2, 0, 2),
-    new Segment(6, 2, 6, 0),
-    new Segment(0, 0, 6, 0),
-  ],
-  { width: 6, height: 6 }
-);
+newShow(["0,0 0,5 5,5 5,0", "0,5 0,10 5,10 5,5"]);
+newShow(["0,0 0,5 5,5 5,0"], { width: 5, height: 10 });
+newShow(["0,5 0,10 5,10 5,5"]);
+newShow(["0,0 0,2 6,2 6,0", "0,4 0,6 6,6 6,4"]);
+newShow(["0,0 0,2 6,2 6,0"], { width: 6, height: 6 });
 
 show([
   new Segment(0, 4, 0, 6),
